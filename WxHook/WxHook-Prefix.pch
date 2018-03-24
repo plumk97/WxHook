@@ -1,0 +1,9 @@
+//
+// Prefix header for all source files of the 'WxHook' target in the 'WxHook' project
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+
+#import <AppHookSDK/AppHookSDK.h>
+#endif
