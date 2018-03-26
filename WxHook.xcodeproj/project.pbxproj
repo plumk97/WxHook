@@ -12,6 +12,7 @@
 		514683342065570200358A57 /* AppHookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 514683332065570200358A57 /* AppHookSDK.framework */; };
 		623E7B6620664ECB00CE79A0 /* WxHookApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 623E7B6420664ECB00CE79A0 /* WxHookApplication.h */; };
 		623E7B6720664ECB00CE79A0 /* WxHookApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 623E7B6520664ECB00CE79A0 /* WxHookApplication.m */; };
+		62F34EFB2068A51600F1A97D /* RevealServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62F34EFA2068A51600F1A97D /* RevealServer.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		623E7B6420664ECB00CE79A0 /* WxHookApplication.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WxHookApplication.h; sourceTree = "<group>"; };
 		623E7B6520664ECB00CE79A0 /* WxHookApplication.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WxHookApplication.m; sourceTree = "<group>"; };
 		623E7B68206652FB00CE79A0 /* Script.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Script.sh; sourceTree = "<group>"; };
+		62F34EFA2068A51600F1A97D /* RevealServer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RevealServer.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +35,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				514683342065570200358A57 /* AppHookSDK.framework in Frameworks */,
+				62F34EFB2068A51600F1A97D /* RevealServer.framework in Frameworks */,
 				51468149206542B800358A57 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -61,6 +64,7 @@
 		51468147206542B800358A57 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				62F34EFA2068A51600F1A97D /* RevealServer.framework */,
 				514683332065570200358A57 /* AppHookSDK.framework */,
 				51468148206542B800358A57 /* Foundation.framework */,
 			);
