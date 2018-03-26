@@ -16,6 +16,8 @@
 #import <Foundation/Foundation.h>
 #import "CaptainHook/CaptainHook.h"
 #import "WxHookApplication.h"
+#import <Cycript/Cycript.h>
+#import <CoreLocation/CoreLocation.h>
 
 CHDeclareClass(UIApplication);
 CHDeclareClass(MicroMessengerAppDelegate);
@@ -25,6 +27,13 @@ CHOptimizedMethod2(self, void, MicroMessengerAppDelegate, application, UIApplica
 {
     CHSuper2(MicroMessengerAppDelegate, application, application, didFinishLaunchingWithOptions, options);
     [WxHookApplication sharedInstance];
+    CYListenServer(8883);
+    
+}
+CHDeclareClass(MMLocationMgr);
+CHMethod2(void, MMLocationMgr, locationManager, CLLocationManager *, manager, didUpdateLocations, NSArray<CLLocation *> *, locations) {
+    CHSuper2(MMLocationMgr, locationManager, manager, didUpdateLocations, locations);
+    locations = @[[[CLLocation alloc] initWithLatitude:116.4770709111 longitude:39.8760362340]];
 }
 
 
@@ -32,5 +41,9 @@ CHConstructor {
     @autoreleasepool {
         CHLoadLateClass(MicroMessengerAppDelegate);
         CHHook2(MicroMessengerAppDelegate, application, didFinishLaunchingWithOptions);
+        
+        
+        CHLoadLateClass(MMLocationMgr);
+        CHClassHook2(MMLocationMgr, locationManager, didUpdateLocations);
     }
 }

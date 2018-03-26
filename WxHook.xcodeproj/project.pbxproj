@@ -13,6 +13,11 @@
 		623E7B6620664ECB00CE79A0 /* WxHookApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 623E7B6420664ECB00CE79A0 /* WxHookApplication.h */; };
 		623E7B6720664ECB00CE79A0 /* WxHookApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 623E7B6520664ECB00CE79A0 /* WxHookApplication.m */; };
 		62F34EFB2068A51600F1A97D /* RevealServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62F34EFA2068A51600F1A97D /* RevealServer.framework */; };
+		62F34F222068E8F800F1A97D /* Cycript.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62F34F212068E8F800F1A97D /* Cycript.framework */; };
+		62F34F242068E91D00F1A97D /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 62F34F232068E91D00F1A97D /* libsqlite3.tbd */; };
+		62F34F262068E92200F1A97D /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 62F34F252068E92200F1A97D /* libstdc++.6.0.9.tbd */; };
+		62F34F282068E94200F1A97D /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62F34F272068E94200F1A97D /* JavaScriptCore.framework */; };
+		62F34F2D2069020200F1A97D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62F34F2C2069020200F1A97D /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +32,11 @@
 		623E7B6520664ECB00CE79A0 /* WxHookApplication.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WxHookApplication.m; sourceTree = "<group>"; };
 		623E7B68206652FB00CE79A0 /* Script.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Script.sh; sourceTree = "<group>"; };
 		62F34EFA2068A51600F1A97D /* RevealServer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RevealServer.framework; sourceTree = "<group>"; };
+		62F34F212068E8F800F1A97D /* Cycript.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Cycript.framework; sourceTree = "<group>"; };
+		62F34F232068E91D00F1A97D /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		62F34F252068E92200F1A97D /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
+		62F34F272068E94200F1A97D /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		62F34F2C2069020200F1A97D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,9 +44,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62F34F2D2069020200F1A97D /* CoreLocation.framework in Frameworks */,
+				62F34F262068E92200F1A97D /* libstdc++.6.0.9.tbd in Frameworks */,
+				62F34F242068E91D00F1A97D /* libsqlite3.tbd in Frameworks */,
+				62F34F282068E94200F1A97D /* JavaScriptCore.framework in Frameworks */,
 				514683342065570200358A57 /* AppHookSDK.framework in Frameworks */,
 				62F34EFB2068A51600F1A97D /* RevealServer.framework in Frameworks */,
 				51468149206542B800358A57 /* Foundation.framework in Frameworks */,
+				62F34F222068E8F800F1A97D /* Cycript.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,6 +79,11 @@
 		51468147206542B800358A57 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				62F34F2C2069020200F1A97D /* CoreLocation.framework */,
+				62F34F272068E94200F1A97D /* JavaScriptCore.framework */,
+				62F34F252068E92200F1A97D /* libstdc++.6.0.9.tbd */,
+				62F34F232068E91D00F1A97D /* libsqlite3.tbd */,
+				62F34F212068E8F800F1A97D /* Cycript.framework */,
 				62F34EFA2068A51600F1A97D /* RevealServer.framework */,
 				514683332065570200358A57 /* AppHookSDK.framework */,
 				51468148206542B800358A57 /* Foundation.framework */,
@@ -294,6 +314,7 @@
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WxHook/WxHook-Prefix.pch";
@@ -328,6 +349,7 @@
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WxHook/WxHook-Prefix.pch";
