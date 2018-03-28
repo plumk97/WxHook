@@ -1,0 +1,100 @@
+消息发送管理
+CMessageMgr
+// 接受消息
+onNewSyncAddMessage
+// 成功发送
+OnSendMessageSuccess
+
+消息Model
+CMessageWrap
+// 消息类型
+// 1 文本
+// 49 红包
+m_uiMessageType
+// 判断是否是红包信息
+isHongBaoMessageForNewWCPayBizExt
+
+位置管理
+LocationRetriever
+更改位置
+onMapLocationChanged
+onMapLocationChanged
+
+
+
+2018-03-28 11:01:59.649350+0800 AppHookDemo[2026:123354] [Hook]: QueryRedEnvelopesDetailRequest : {
+channelId = 1;
+msgType = 1;
+nativeUrl = "wxpay://c2cbizmessagehandler/hongbao/receivehongbao?msgtype=1&channelid=1&sendid=1000039401201803276024748583656&sendusername=wxid_uo39614r0xwy22&ver=6&sign=af78a7ece32b42a7e638c5b5aa0a1302b69a9bd0429484a4feedfe5960f10608c1e512072af3cfc7f757e69cbe5c66b5a01c847000f036981d9a8ca0032ae1785d55a8f3b4afecfcb01197543d913d75";
+sendId = 1000039401201803276024748583656;
+}, __NSDictionaryM
+2018-03-28 11:01:59.689057+0800 AppHookDemo[2026:123354] [Hook]: OnWCToHongbaoCommonResponse : <HongBaoRes: 0x116e5fb50>, HongBaoRes
+<HongBaoReq: 0x10f3b8990>, HongBaoReq
+{
+amount = 1;
+atomicFunc =     {
+enable = 0;
+};
+canShare = 0;
+changeWording = "\U5df2\U5b58\U5165\U96f6\U94b1\Uff0c\U53ef\U76f4\U63a5\U63d0\U73b0";
+hasWriteAnswer = 0;
+hbKind = 1;
+hbStatus = 4;
+hbType = 0;
+headTitle = "";
+isContinue = 0;
+isSender = 0;
+jumpChange = 1;
+operationHeader =     (
+);
+operationTail =     {
+enable = 0;
+};
+recAmount = 1;
+recNum = 1;
+receiveId = 1000039401000803276024748583656;
+receiveStatus = 2;
+record =     (
+{
+answer = "";
+receiveAmount = 1;
+receiveId = 1000039401000803276024748583656;
+receiveOpenId = 1000039401000803276024748583656;
+receiveTime = 1522204796;
+state = 1;
+userName = "wxid_94eh0pdk6cz021";
+}
+);
+retcode = 0;
+retmsg = ok;
+sendId = 1000039401201803276024748583656;
+sendUserName = "wxid_uo39614r0xwy22";
+statusMess = "\U6210\U529f\U9886\U5230";
+totalAmount = 1;
+totalNum = 1;
+wishing = "\U606d\U559c\U53d1\U8d22\Uff0c\U5927\U5409\U5927\U5229";
+}
+2018-03-28 11:02:02.010901+0800 AppHookDemo[2026:123354] [Hook]: ReceiverQueryRedEnvelopesRequest : {
+agreeDuty = 0;
+channelId = 1;
+inWay = 1;
+msgType = 1;
+nativeUrl = "wxpay://c2cbizmessagehandler/hongbao/receivehongbao?msgtype=1&channelid=1&sendid=1000039401201803276025875482353&sendusername=wxid_uo39614r0xwy22&ver=6&sign=fd6e13fe5498979b145a517f2c09234655c5d442081f71899be971687185785e017de5269e167159a5f8f6ec4bce40630f867b2c527bebe4a31a11b1c2a17583776675c39b325a57784e06858e73cabe";
+sendId = 1000039401201803276025875482353;
+}, __NSDictionaryM
+2018-03-28 11:02:02.162644+0800 AppHookDemo[2026:123354] [Hook]: OnWCToHongbaoCommonResponse : <HongBaoRes: 0x10d258a20>, HongBaoRes
+<HongBaoReq: 0x118110c00>, HongBaoReq
+{
+hbStatus = 2;
+hbType = 0;
+isSender = 0;
+receiveStatus = 0;
+retcode = 0;
+retmsg = ok;
+sendId = 1000039401201803276025875482353;
+sendUserName = "wxid_uo39614r0xwy22";
+statusMess = "\U7ed9\U4f60\U53d1\U4e86\U4e00\U4e2a\U7ea2\U5305";
+timingIdentifier = B93AEFC14C26297614CD9FBE1C813C1A;
+watermark = "";
+wishing = "\U606d\U559c\U53d1\U8d22\Uff0c\U5927\U5409\U5927\U5229";
+}
