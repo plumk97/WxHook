@@ -21,7 +21,7 @@ static TDDebugWindow * DebugWindow = nil;
         
         self.rootViewController = [[UIViewController alloc] init];
         [self.rootViewController.view addSubview:self.textView];
-        self.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.1];
         self.userInteractionEnabled = NO;
         DebugWindow = self;
     }
@@ -32,9 +32,9 @@ static TDDebugWindow * DebugWindow = nil;
     
     if (!_textView) {
         _textView = [[UITextView alloc] initWithFrame:self.bounds];
-        _textView.textColor = [UIColor redColor];
+        _textView.textColor = [UIColor yellowColor];
         _textView.backgroundColor = [UIColor clearColor];
-        _textView.font = [UIFont systemFontOfSize:11];
+        _textView.font = [UIFont systemFontOfSize:12];
     }
     return _textView;
 }
@@ -44,6 +44,13 @@ static TDDebugWindow * DebugWindow = nil;
     self.textView.bounds = self.bounds;
 }
 
++ (void)logWithFormat:(NSString *)format, ... NS_FORMAT_FUNCTION(1, 2) {
+    va_list list;
+    va_start(list, format);
+    NSString * str = [[NSString alloc] initWithFormat:format arguments:list];
+    va_end(list);
+    [self outputDebugContent:str];
+}
 + (void)outputDebugContent:(NSString *)content {
     dispatch_async(dispatch_get_main_queue(), ^{
         DebugWindow.textView.text = [DebugWindow.textView.text stringByAppendingFormat:@"%@\n",content];

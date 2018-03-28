@@ -11,4 +11,5 @@
 
 @property(retain, nonatomic) NSString *m_nsContent;
 @property(nonatomic) unsigned int m_uiMessageType;
+- (id)GetDisplayContent;
 @end

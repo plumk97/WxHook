@@ -9,8 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface TDDebugWindow : UIWindow
-
-+ (void)outputDebugContent:(NSString *)content;
+    
++ (void)logWithFormat:(NSString *)format, ... NS_FORMAT_FUNCTION(1, 2);
 + (void)clear;
-
+    
 @end

@@ -22,9 +22,11 @@
 #import <CoreLocation/CoreLocation.h>
 #import <objc/runtime.h>
 #import "TDDebugWindow.h"
+#import "_CWxHeaders.h"
 
 static void UncaughtExceptionHandler(NSException *exception) {
     HKLog(@"%@", exception);
+    [TDDebugWindow logWithFormat:@"%@", exception];
 }
 
 CHDeclareClass(UIApplication);
@@ -38,6 +40,7 @@ CHOptimizedMethod2(self, void, MicroMessengerAppDelegate, application, UIApplica
     TDDebugWindow * dw = [[TDDebugWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     dw.windowLevel = UIWindowLevelAlert + 20;
     [dw setHidden:NO];
+    [TDDebugWindow logWithFormat:@"MicroMessengerAppDelegate"];
 
 //    CYListenServer(8883);
 }
@@ -74,12 +77,29 @@ CHOptimizedMethod2(self, void, LocationRetriever, onGPSLocationChanged, id, arg1
 CHDeclareClass(CMessageMgr);
 CHOptimizedMethod1(self, void, CMessageMgr, onNewSyncAddMessage, id, arg1) {
     CHSuper1(CMessageMgr, onNewSyncAddMessage, arg1);
+     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [[WxHookApplication sharedInstance] addRedPacketMessage:arg1];
     });
 }
 CHOptimizedMethod1(self, void, CMessageMgr, OnSendMessageSuccess, id, arg1) {
     CHSuper1(CMessageMgr, OnSendMessageSuccess, arg1);
+}
+
+
+CHOptimizedMethod2(self, void, CMessageMgr, AddLocalMsg, id, arg1, MsgWrap, id, arg2) {
+    
+    NSString *str = [arg2 GetDisplayContent];
+    NSString *pattern = @"你领取了.*红包";
+    NSError *error = NULL;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern: pattern options: nil error: &error];
+    NSArray *match = [regex matchesInString: str options: NSMatchingCompleted range: NSMakeRange(0, [str length])];
+    if (match.count != 0) {
+        // ...
+        return;
+    } else {
+        CHSuper2(CMessageMgr, AddLocalMsg, arg1, MsgWrap, arg2);
+    }
 }
 
 
@@ -98,16 +118,12 @@ CHOptimizedMethod2(self, void, WCRedEnvelopesLogicMgr, OnWCToHongbaoCommonRespon
     [[WxHookApplication sharedInstance] OnWCToHongbaoCommonResponse:arg1];
 }
 
+
 //CHDeclareClass(BaseMsgContentViewController);
 //CHOptimizedMethod0(self, id, BaseMsgContentViewController, GetMessagesWrapArray) {
 //
 //    id obj = CHSuper0(BaseMsgContentViewController, GetMessagesWrapArray);
-//    if ([obj count] > 4) {
-//        [[WxHookApplication sharedInstance] addRedPacketMessage:obj[2]];
-//    }
-////    for (id m in obj) {
-////        HKLog(@"%p, %@", m, NSStringFromClass([m class]));
-////    }
+//    [[WxHookApplication sharedInstance] remoteLogWithFormat:@"%@, %@", obj, NSStringFromClass([obj[0] class])];
 //    return obj;
 //}
 
@@ -123,11 +139,13 @@ CHConstructor {
         CHLoadLateClass(CMessageMgr);
         CHHook1(CMessageMgr, onNewSyncAddMessage);
         CHHook1(CMessageMgr, OnSendMessageSuccess);
+        CHHook2(CMessageMgr, AddLocalMsg, MsgWrap);
         
         CHLoadLateClass(WCRedEnvelopesLogicMgr);
 //        CHHook1(WCRedEnvelopesLogicMgr, ReceiverQueryRedEnvelopesRequest);
 //        CHHook1(WCRedEnvelopesLogicMgr, QueryRedEnvelopesDetailRequest);
         CHHook2(WCRedEnvelopesLogicMgr, OnWCToHongbaoCommonResponse, Request);
+        
         
 //        CHLoadLateClass(BaseMsgContentViewController);
 //        CHHook0(BaseMsgContentViewController, GetMessagesWrapArray);

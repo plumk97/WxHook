@@ -167,8 +167,8 @@
             [self.waitOpenRedPacketMessages removeObjectForKey:sendId];
             
             _receiveRedPacketCount ++;
-            [TDDebugWindow clear];
-            [TDDebugWindow outputDebugContent:[NSString stringWithFormat:@"已经领取: %d", self.receiveRedPacketCount]];
+//            [TDDebugWindow clear];
+            [TDDebugWindow logWithFormat:@"已经领取: %d", self.receiveRedPacketCount];
         }
     }
     
