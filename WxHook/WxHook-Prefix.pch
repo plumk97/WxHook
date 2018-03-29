@@ -7,4 +7,6 @@
 
 #import <AppHookSDK/AppHookSDK.h>
 #import "TDDebugWindow.h"
+#import "_CWxHeaders.h"
+
 #endif

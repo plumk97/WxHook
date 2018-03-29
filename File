@@ -4,12 +4,15 @@ CMessageMgr
 onNewSyncAddMessage
 // 成功发送
 OnSendMessageSuccess
+// 添加本地消息，你领取了红包这些
+AddLocalMsg:MsgWrap
 
 消息Model
 CMessageWrap
 // 消息类型
 // 1 文本
 // 49 红包
+// 10000 红包领取信息
 m_uiMessageType
 // 判断是否是红包信息
 isHongBaoMessageForNewWCPayBizExt

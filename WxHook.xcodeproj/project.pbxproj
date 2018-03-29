@@ -10,8 +10,6 @@
 		51468149206542B800358A57 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51468148206542B800358A57 /* Foundation.framework */; };
 		51468151206542B800358A57 /* WxHook.mm in Sources */ = {isa = PBXBuildFile; fileRef = 51468150206542B800358A57 /* WxHook.mm */; };
 		514683342065570200358A57 /* AppHookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 514683332065570200358A57 /* AppHookSDK.framework */; };
-		620C82B8206B75CE00144D51 /* WxHookContace.h in Headers */ = {isa = PBXBuildFile; fileRef = 620C82B6206B75CE00144D51 /* WxHookContace.h */; };
-		620C82B9206B75CE00144D51 /* WxHookContace.m in Sources */ = {isa = PBXBuildFile; fileRef = 620C82B7206B75CE00144D51 /* WxHookContace.m */; };
 		620C82C3206B8D2500144D51 /* _CMessageWrap.m in Sources */ = {isa = PBXBuildFile; fileRef = 620C82C1206B8D2500144D51 /* _CMessageWrap.m */; };
 		620C82C4206B8D2500144D51 /* _CMessageWrap.h in Headers */ = {isa = PBXBuildFile; fileRef = 620C82C2206B8D2500144D51 /* _CMessageWrap.h */; };
 		620C82C7206B8DC000144D51 /* _MMServiceCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 620C82C5206B8DC000144D51 /* _MMServiceCenter.h */; };
@@ -28,6 +26,14 @@
 		622F93C0206BA29500FF5F87 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 622F93BF206BA29500FF5F87 /* UIKit.framework */; };
 		623E7B6620664ECB00CE79A0 /* WxHookApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 623E7B6420664ECB00CE79A0 /* WxHookApplication.h */; };
 		623E7B6720664ECB00CE79A0 /* WxHookApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 623E7B6520664ECB00CE79A0 /* WxHookApplication.m */; };
+		628BAD59206CDB0800EC6A01 /* WxHookSettingViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 628BAD57206CDB0800EC6A01 /* WxHookSettingViewController.h */; };
+		628BAD5A206CDB0800EC6A01 /* WxHookSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 628BAD58206CDB0800EC6A01 /* WxHookSettingViewController.m */; };
+		62C8B14D206CF01300E1DE9A /* WxHookSettingTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 62C8B149206CF01200E1DE9A /* WxHookSettingTableViewCell.h */; };
+		62C8B14E206CF01300E1DE9A /* WxHookSettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 62C8B14A206CF01300E1DE9A /* WxHookSettingTableViewCell.m */; };
+		62C8B14F206CF01300E1DE9A /* WxHookSimulateLocationViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 62C8B14B206CF01300E1DE9A /* WxHookSimulateLocationViewController.h */; };
+		62C8B150206CF01300E1DE9A /* WxHookSimulateLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62C8B14C206CF01300E1DE9A /* WxHookSimulateLocationViewController.m */; };
+		62C8B152206CF30C00E1DE9A /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62C8B151206CF30C00E1DE9A /* MapKit.framework */; };
+		62C8B154206CF33500E1DE9A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62C8B153206CF33500E1DE9A /* CoreGraphics.framework */; };
 		62F34EFB2068A51600F1A97D /* RevealServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62F34EFA2068A51600F1A97D /* RevealServer.framework */; };
 		62F34F222068E8F800F1A97D /* Cycript.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62F34F212068E8F800F1A97D /* Cycript.framework */; };
 		62F34F242068E91D00F1A97D /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 62F34F232068E91D00F1A97D /* libsqlite3.tbd */; };
@@ -44,8 +50,6 @@
 		51468150206542B800358A57 /* WxHook.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = WxHook.mm; sourceTree = "<group>"; };
 		51468155206542B800358A57 /* WxHook.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = WxHook.plist; path = Package/Library/MobileSubstrate/DynamicLibraries/WxHook.plist; sourceTree = "<group>"; };
 		514683332065570200358A57 /* AppHookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppHookSDK.framework; sourceTree = "<group>"; };
-		620C82B6206B75CE00144D51 /* WxHookContace.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WxHookContace.h; sourceTree = "<group>"; };
-		620C82B7206B75CE00144D51 /* WxHookContace.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WxHookContace.m; sourceTree = "<group>"; };
 		620C82C1206B8D2500144D51 /* _CMessageWrap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _CMessageWrap.m; sourceTree = "<group>"; };
 		620C82C2206B8D2500144D51 /* _CMessageWrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _CMessageWrap.h; sourceTree = "<group>"; };
 		620C82C5206B8DC000144D51 /* _MMServiceCenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _MMServiceCenter.h; sourceTree = "<group>"; };
@@ -64,7 +68,15 @@
 		623E7B6420664ECB00CE79A0 /* WxHookApplication.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WxHookApplication.h; sourceTree = "<group>"; };
 		623E7B6520664ECB00CE79A0 /* WxHookApplication.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WxHookApplication.m; sourceTree = "<group>"; };
 		623E7B68206652FB00CE79A0 /* Script.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Script.sh; sourceTree = "<group>"; };
+		628BAD57206CDB0800EC6A01 /* WxHookSettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WxHookSettingViewController.h; sourceTree = "<group>"; };
+		628BAD58206CDB0800EC6A01 /* WxHookSettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WxHookSettingViewController.m; sourceTree = "<group>"; };
 		62ADE7762069DE05007F78A4 /* File */ = {isa = PBXFileReference; lastKnownFileType = text; path = File; sourceTree = "<group>"; };
+		62C8B149206CF01200E1DE9A /* WxHookSettingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WxHookSettingTableViewCell.h; sourceTree = "<group>"; };
+		62C8B14A206CF01300E1DE9A /* WxHookSettingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WxHookSettingTableViewCell.m; sourceTree = "<group>"; };
+		62C8B14B206CF01300E1DE9A /* WxHookSimulateLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WxHookSimulateLocationViewController.h; sourceTree = "<group>"; };
+		62C8B14C206CF01300E1DE9A /* WxHookSimulateLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WxHookSimulateLocationViewController.m; sourceTree = "<group>"; };
+		62C8B151206CF30C00E1DE9A /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		62C8B153206CF33500E1DE9A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		62F34EFA2068A51600F1A97D /* RevealServer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RevealServer.framework; sourceTree = "<group>"; };
 		62F34F212068E8F800F1A97D /* Cycript.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Cycript.framework; sourceTree = "<group>"; };
 		62F34F232068E91D00F1A97D /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
@@ -78,6 +90,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62C8B154206CF33500E1DE9A /* CoreGraphics.framework in Frameworks */,
+				62C8B152206CF30C00E1DE9A /* MapKit.framework in Frameworks */,
 				622F93C0206BA29500FF5F87 /* UIKit.framework in Frameworks */,
 				620C82D3206B914200144D51 /* libobjc.tbd in Frameworks */,
 				62F34F2D2069020200F1A97D /* CoreLocation.framework in Frameworks */,
@@ -116,6 +130,8 @@
 		51468147206542B800358A57 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				62C8B153206CF33500E1DE9A /* CoreGraphics.framework */,
+				62C8B151206CF30C00E1DE9A /* MapKit.framework */,
 				622F93BF206BA29500FF5F87 /* UIKit.framework */,
 				620C82D2206B914200144D51 /* libobjc.tbd */,
 				62F34F2C2069020200F1A97D /* CoreLocation.framework */,
@@ -136,10 +152,9 @@
 				51468150206542B800358A57 /* WxHook.mm */,
 				623E7B6420664ECB00CE79A0 /* WxHookApplication.h */,
 				623E7B6520664ECB00CE79A0 /* WxHookApplication.m */,
-				620C82B6206B75CE00144D51 /* WxHookContace.h */,
-				620C82B7206B75CE00144D51 /* WxHookContace.m */,
 				620C82DA206BA1E200144D51 /* TDDebugWindow.h */,
 				620C82D9206BA1E200144D51 /* TDDebugWindow.mm */,
+				628BAD56206CDAF800EC6A01 /* SettingViewController */,
 				620C82C0206B8D2500144D51 /* WxHeaders */,
 				5146814B206542B800358A57 /* Package */,
 				5146814E206542B800358A57 /* Supporting Files */,
@@ -214,6 +229,19 @@
 			path = WxHeaders;
 			sourceTree = "<group>";
 		};
+		628BAD56206CDAF800EC6A01 /* SettingViewController */ = {
+			isa = PBXGroup;
+			children = (
+				62C8B149206CF01200E1DE9A /* WxHookSettingTableViewCell.h */,
+				62C8B14A206CF01300E1DE9A /* WxHookSettingTableViewCell.m */,
+				628BAD57206CDB0800EC6A01 /* WxHookSettingViewController.h */,
+				628BAD58206CDB0800EC6A01 /* WxHookSettingViewController.m */,
+				62C8B14B206CF01300E1DE9A /* WxHookSimulateLocationViewController.h */,
+				62C8B14C206CF01300E1DE9A /* WxHookSimulateLocationViewController.m */,
+			);
+			path = SettingViewController;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -221,12 +249,14 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				628BAD59206CDB0800EC6A01 /* WxHookSettingViewController.h in Headers */,
 				620C82D6206B971800144D51 /* _WCRedEnvelopesLogicMgr.h in Headers */,
 				620C82D0206B8EF400144D51 /* _CContactMgr.h in Headers */,
 				620C82C4206B8D2500144D51 /* _CMessageWrap.h in Headers */,
+				62C8B14F206CF01300E1DE9A /* WxHookSimulateLocationViewController.h in Headers */,
 				620C82CC206B8E8700144D51 /* _CContact.h in Headers */,
 				620C82DC206BA1E200144D51 /* TDDebugWindow.h in Headers */,
-				620C82B8206B75CE00144D51 /* WxHookContace.h in Headers */,
+				62C8B14D206CF01300E1DE9A /* WxHookSettingTableViewCell.h in Headers */,
 				623E7B6620664ECB00CE79A0 /* WxHookApplication.h in Headers */,
 				620C82C7206B8DC000144D51 /* _MMServiceCenter.h in Headers */,
 			);
@@ -307,12 +337,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				623E7B6720664ECB00CE79A0 /* WxHookApplication.m in Sources */,
-				620C82B9206B75CE00144D51 /* WxHookContace.m in Sources */,
 				620C82CD206B8E8700144D51 /* _CContact.m in Sources */,
+				62C8B150206CF01300E1DE9A /* WxHookSimulateLocationViewController.m in Sources */,
 				51468151206542B800358A57 /* WxHook.mm in Sources */,
 				620C82C3206B8D2500144D51 /* _CMessageWrap.m in Sources */,
+				62C8B14E206CF01300E1DE9A /* WxHookSettingTableViewCell.m in Sources */,
 				620C82DB206BA1E200144D51 /* TDDebugWindow.mm in Sources */,
 				620C82D7206B971800144D51 /* _WCRedEnvelopesLogicMgr.m in Sources */,
+				628BAD5A206CDB0800EC6A01 /* WxHookSettingViewController.m in Sources */,
 				620C82C8206B8DC000144D51 /* _MMServiceCenter.m in Sources */,
 				620C82D1206B8EF400144D51 /* _CContactMgr.m in Sources */,
 			);

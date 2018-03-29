@@ -8,8 +8,11 @@
 #import "WxHookApplication.h"
 #import <objc/runtime.h>
 #import <objc/message.h>
+#import "WxHookSettingViewController.h"
 
-#import "_CWxHeaders.h"
+
+#define WxHook_AutoOpenRedPacket @"WxHook_AutoOpenRedPacket"
+#define WxHook_SimulateLocationCoordinate @"WxHook_SimulateLocationCoordinate"
 
 @interface WxHookApplication () {
     HKSocketServer * _server;
@@ -35,6 +38,15 @@
     if (self) {
         _waitOpenRedPacketMessages = [[NSMutableDictionary alloc] init];
         [self applicationFinishLaunch];
+        
+        _autoOpenRedPacket = [[[NSUserDefaults standardUserDefaults] objectForKey:@"WxHook_AutoOpenRedPacket"] boolValue];
+    
+        NSString * coordinateStr = [[NSUserDefaults standardUserDefaults] objectForKey:WxHook_SimulateLocationCoordinate];
+        if (coordinateStr != nil) {
+            NSArray * components = [coordinateStr componentsSeparatedByString:@","];
+            _simulateLocationCoordinate = CLLocationCoordinate2DMake([components[0] floatValue], [components[1] floatValue]);
+            [self renewSimulateLocation];
+        }
     }
     return self;
 }
@@ -54,6 +66,10 @@
     [_server writePacket:packet];
 }
 
+- (void)pushHookSettingViewController {
+    [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:[WxHookSettingViewController settingNavigationController] animated:YES completion:nil];
+}
+
 - (id)MMServiceCenter {
     return [NSClassFromString(@"MMServiceCenter") defaultCenter];
 }
@@ -62,18 +78,10 @@
     return [[self MMServiceCenter] getService:[NSClassFromString(serviceClass) class]];
 }
 
-@synthesize selfContact = _selfContact;
-- (WxHookContace *)selfContact {
+- (id)selfContact {
     
     id contact = [[self getService:@"CContactMgr"] getSelfContact];
-    if (!contact) {
-        _selfContact = nil;
-        return nil;
-    }
-    if (_selfContact == nil) {
-        _selfContact = [[WxHookContace alloc] initWithContact:contact];
-    }
-    return _selfContact;
+    return contact;
 }
 
 // MARK: - Application Launch
@@ -84,26 +92,28 @@
 
 
 // MAKR: - Red Packet
-/*
- channelId = 1;
- headImg = "http://wx.qlogo.cn/mmhead/ver_1/TrmeHic3OV5CjWONq6YoZRibiaPSqroESzmIIFTkiag19TTHVicqn2l0QsWWziclGxiajEiaLTHTjpQ2GVQia3KEoVibibxicmErmt0ObsZDCay8Ndyt4xs/132";
- msgType = 1;
- nativeUrl = "wxpay://c2cbizmessagehandler/hongbao/receivehongbao?msgtype=1&channelid=1&sendid=1000039401201803276024877749882&sendusername=wxid_uo39614r0xwy22&ver=6&sign=b05042743978bace356d3fdddf4da46a1298dd023c993e3445ba648490f73d55b4ec2360e7a2d0300f2ea383d7cfc453fa92f9264ef2b33141be54f766b23da30a50fadab054ff450ea13d826a775656";
- nickName = Ayo;
- sendId = 1000039401201803276024877749882;
- sessionUserName = "wxid_uo39614r0xwy22";
- timingIdentifier = C66C0FE11792FBBA10CD30EA907CB2
- */
+- (void)setAutoOpenRedPacket:(BOOL)autoOpenRedPacket {
+    _autoOpenRedPacket = autoOpenRedPacket;
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:autoOpenRedPacket] forKey:WxHook_AutoOpenRedPacket];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 
 - (void)addRedPacketMessage:(id)message {
     
     int type = [message m_uiMessageType];
     if (type == 49 && [self selfContact]) {
         
-       
         NSString * m_nsContent = [message m_nsContent];
         // 已经领取过
         if ([m_nsContent rangeOfString:@"paysubtype"].length > 0) return;
+        
+        id selfContact = [self selfContact];
+        NSString * nickname = [selfContact m_nsNickName];
+        NSString * headImg = [selfContact m_nsHeadImgUrl];
+        if (nickname == nil || headImg == nil) {
+            return;
+        }
         
         NSString *pattern = @"wxpay:.*?]";
         NSError *error = NULL;
@@ -116,8 +126,8 @@
             NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
             [params setObject:wxpayStr forKey:@"nativeUrl"];
             
-            [params setObject:@"Ayo" forKey:@"nickName"];
-            [params setObject:@"http://wx.qlogo.cn/mmhead/ver_1/TrmeHic3OV5CjWONq6YoZRibiaPSqroESzmIIFTkiag19TTHVicqn2l0QsWWziclGxiajEiaLTHTjpQ2GVQia3KEoVibibxicmErmt0ObsZDCay8Ndyt4xs/132" forKey:@"headImg"];
+            [params setObject:nickname forKey:@"nickName"];
+            [params setObject:headImg forKey:@"headImg"];
             
             NSURLComponents * components = [NSURLComponents componentsWithURL:[NSURL URLWithString:wxpayStr] resolvingAgainstBaseURL:NO];
             for (NSURLQueryItem * item in [components queryItems]) {
@@ -138,7 +148,7 @@
             
             id redMgr = [self getService:@"WCRedEnvelopesLogicMgr"];
             NSMutableDictionary * requestParams = [[NSMutableDictionary alloc]
-                                                   initWithDictionary:@{@"agreeDuty" : @"1",
+                                                   initWithDictionary:@{@"agreeDuty" : @"0",
                                                                         @"channelId" : [params objectForKey:@"channelId"],
                                                                         @"inWay" : @"1",
                                                                         @"msgType" : [params objectForKey:@"msgType"],
@@ -167,13 +177,26 @@
             [self.waitOpenRedPacketMessages removeObjectForKey:sendId];
             
             _receiveRedPacketCount ++;
-//            [TDDebugWindow clear];
-            [TDDebugWindow logWithFormat:@"已经领取: %d", self.receiveRedPacketCount];
         }
     }
     
 }
 
+// MARK: - Location
+@synthesize simulateLocation = _simulateLocation;
+- (void)setSimulateLocationCoordinate:(CLLocationCoordinate2D)simulateLocationCoordinate {
+    _simulateLocationCoordinate = simulateLocationCoordinate;
+    [self renewSimulateLocation];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%f,%f", simulateLocationCoordinate.latitude, simulateLocationCoordinate.longitude] forKey:WxHook_SimulateLocationCoordinate];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
 
+- (void)renewSimulateLocation {
+    if (_simulateLocationCoordinate.longitude > 0 && _simulateLocationCoordinate.latitude > 0) {
+        _simulateLocation = [[CLLocation alloc] initWithLatitude:_simulateLocationCoordinate.latitude longitude:_simulateLocationCoordinate.longitude];
+    } else {
+        _simulateLocation = nil;
+    }
+}
 
 @end

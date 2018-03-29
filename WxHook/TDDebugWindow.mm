@@ -21,7 +21,7 @@ static TDDebugWindow * DebugWindow = nil;
         
         self.rootViewController = [[UIViewController alloc] init];
         [self.rootViewController.view addSubview:self.textView];
-        self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.1];
+        self.backgroundColor = [UIColor clearColor];
         self.userInteractionEnabled = NO;
         DebugWindow = self;
     }

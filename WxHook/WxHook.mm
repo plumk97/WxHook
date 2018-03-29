@@ -19,17 +19,14 @@
 #import "CaptainHook/CaptainHook.h"
 #import "WxHookApplication.h"
 #import <Cycript/Cycript.h>
-#import <CoreLocation/CoreLocation.h>
 #import <objc/runtime.h>
-#import "TDDebugWindow.h"
-#import "_CWxHeaders.h"
 
 static void UncaughtExceptionHandler(NSException *exception) {
     HKLog(@"%@", exception);
-    [TDDebugWindow logWithFormat:@"%@", exception];
 }
 
-CHDeclareClass(UIApplication);
+// MARK: - MicroMessengerAppDelegate
+
 CHDeclareClass(MicroMessengerAppDelegate);
 CHOptimizedMethod2(self, void, MicroMessengerAppDelegate, application, UIApplication *, application, didFinishLaunchingWithOptions, NSDictionary *, options)
 {
@@ -37,50 +34,48 @@ CHOptimizedMethod2(self, void, MicroMessengerAppDelegate, application, UIApplica
     [WxHookApplication sharedInstance];
     NSSetUncaughtExceptionHandler(&UncaughtExceptionHandler);
     
-    TDDebugWindow * dw = [[TDDebugWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    dw.windowLevel = UIWindowLevelAlert + 20;
-    [dw setHidden:NO];
-    [TDDebugWindow logWithFormat:@"MicroMessengerAppDelegate"];
-
+//    TDDebugWindow * dw = [[TDDebugWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+//    dw.windowLevel = UIWindowLevelAlert + 20;
+//    [dw setHidden:NO];
+//    [TDDebugWindow logWithFormat:@"MicroMessengerAppDelegate"];
+    
 //    CYListenServer(8883);
 }
 
+// MARK: - LocationRetriever
 CHDeclareClass(LocationRetriever);
 CHOptimizedMethod2(self, void, LocationRetriever, onMapLocationChanged, id, arg1, withTag, long long, arg2) {
     
-    NSString * latitude = [[NSUserDefaults standardUserDefaults] objectForKey:AppHookSDK_Location_latitude];
-    NSString * longitude = [[NSUserDefaults standardUserDefaults] objectForKey:AppHookSDK_Location_longitude];
-    
-    if (latitude == nil) {
+    CLLocation * simulateLocation = [WxHookApplication sharedInstance].simulateLocation;
+    if (simulateLocation == nil) {
         CHSuper2(LocationRetriever, onMapLocationChanged, arg1, withTag, arg2);
         return;
     }
     
-    CLLocation * location = [[CLLocation alloc] initWithLatitude:[latitude floatValue] longitude:[longitude floatValue]];
-    arg1 = location;
+    arg1 = simulateLocation;
     CHSuper2(LocationRetriever, onMapLocationChanged, arg1, withTag, arg2);
 }
 CHOptimizedMethod2(self, void, LocationRetriever, onGPSLocationChanged, id, arg1, withTag, unsigned long long, arg2) {
-    NSString * latitude = [[NSUserDefaults standardUserDefaults] objectForKey:AppHookSDK_Location_latitude];
-    NSString * longitude = [[NSUserDefaults standardUserDefaults] objectForKey:AppHookSDK_Location_longitude];
-    
-    if (latitude == nil) {
+
+    CLLocation * simulateLocation = [WxHookApplication sharedInstance].simulateLocation;
+    if (simulateLocation == nil) {
         CHSuper2(LocationRetriever, onGPSLocationChanged, arg1, withTag, arg2);
         return;
     }
     
-    CLLocation * location = [[CLLocation alloc] initWithLatitude:[latitude floatValue] longitude:[longitude floatValue]];
-    arg1 = location;
+    arg1 = simulateLocation;
     CHSuper2(LocationRetriever, onGPSLocationChanged, arg1, withTag, arg2);
 }
 
+// MARK: - CMessageMgr
 CHDeclareClass(CMessageMgr);
 CHOptimizedMethod1(self, void, CMessageMgr, onNewSyncAddMessage, id, arg1) {
     CHSuper1(CMessageMgr, onNewSyncAddMessage, arg1);
-     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [[WxHookApplication sharedInstance] addRedPacketMessage:arg1];
-    });
+    if ([WxHookApplication sharedInstance].autoOpenRedPacket) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [[WxHookApplication sharedInstance] addRedPacketMessage:arg1];
+        });
+    }
 }
 CHOptimizedMethod1(self, void, CMessageMgr, OnSendMessageSuccess, id, arg1) {
     CHSuper1(CMessageMgr, OnSendMessageSuccess, arg1);
@@ -102,31 +97,32 @@ CHOptimizedMethod2(self, void, CMessageMgr, AddLocalMsg, id, arg1, MsgWrap, id, 
     }
 }
 
-
+// MARK: - WCRedEnvelopesLogicMgr
 CHDeclareClass(WCRedEnvelopesLogicMgr);
-//CHOptimizedMethod1(self, void, WCRedEnvelopesLogicMgr, QueryRedEnvelopesDetailRequest, id, arg1) {
-//    CHSuper1(WCRedEnvelopesLogicMgr, QueryRedEnvelopesDetailRequest, arg1);
-//    [[WxHookApplication sharedInstance] remoteLogWithFormat:@"QueryRedEnvelopesDetailRequest : %@, %@", arg1, NSStringFromClass([arg1 class])];
-//}
-//CHOptimizedMethod1(self, void, WCRedEnvelopesLogicMgr, ReceiverQueryRedEnvelopesRequest, id, arg1) {
-//    CHSuper1(WCRedEnvelopesLogicMgr, ReceiverQueryRedEnvelopesRequest, arg1);
-//    [[WxHookApplication sharedInstance] remoteLogWithFormat:@"ReceiverQueryRedEnvelopesRequest : %@, %@", arg1, NSStringFromClass([arg1 class])];
-//}
-
 CHOptimizedMethod2(self, void, WCRedEnvelopesLogicMgr, OnWCToHongbaoCommonResponse, id, arg1, Request, id , arg2) {
     CHSuper2(WCRedEnvelopesLogicMgr, OnWCToHongbaoCommonResponse, arg1, Request, arg2);
     [[WxHookApplication sharedInstance] OnWCToHongbaoCommonResponse:arg1];
 }
 
 
+// MARK: - NewSettingViewController
+CHDeclareClass(NewSettingViewController);
+CHOptimizedMethod0(self, void, NewSettingViewController, viewDidLoad) {
+    //self.navigationItem.rightBarButtonItem
+    //UIBarButtonItem
+    CHSuper0(NewSettingViewController, viewDidLoad);
+    UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithTitle:@"Hook" style:UIBarButtonItemStylePlain target:[WxHookApplication sharedInstance] action:@selector(pushHookSettingViewController)];
+    id obj = self;
+    [[obj navigationItem] setRightBarButtonItem: item];
+}
+
 //CHDeclareClass(BaseMsgContentViewController);
 //CHOptimizedMethod0(self, id, BaseMsgContentViewController, GetMessagesWrapArray) {
-//
 //    id obj = CHSuper0(BaseMsgContentViewController, GetMessagesWrapArray);
-//    [[WxHookApplication sharedInstance] remoteLogWithFormat:@"%@, %@", obj, NSStringFromClass([obj[0] class])];
 //    return obj;
 //}
 
+// MARK: - CHConstructor
 CHConstructor {
     @autoreleasepool {
         CHLoadLateClass(MicroMessengerAppDelegate);
@@ -142,10 +138,10 @@ CHConstructor {
         CHHook2(CMessageMgr, AddLocalMsg, MsgWrap);
         
         CHLoadLateClass(WCRedEnvelopesLogicMgr);
-//        CHHook1(WCRedEnvelopesLogicMgr, ReceiverQueryRedEnvelopesRequest);
-//        CHHook1(WCRedEnvelopesLogicMgr, QueryRedEnvelopesDetailRequest);
         CHHook2(WCRedEnvelopesLogicMgr, OnWCToHongbaoCommonResponse, Request);
         
+        CHLoadLateClass(NewSettingViewController);
+        CHHook0(NewSettingViewController, viewDidLoad);
         
 //        CHLoadLateClass(BaseMsgContentViewController);
 //        CHHook0(BaseMsgContentViewController, GetMessagesWrapArray);

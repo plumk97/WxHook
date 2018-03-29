@@ -9,6 +9,7 @@
 
 @interface _CContact : NSObject
 
+@property(retain, nonatomic) NSString *m_nsNickName;
 @property(strong, nonatomic) NSDictionary *externalInfoJSONCache; // @synthesize externalInfoJSONCache=_externalInfoJSONCache;
 @property(strong, nonatomic) NSString *m_nsDisplayNamePY; // @synthesize m_nsDisplayNamePY;
 @property(strong, nonatomic) NSString *m_nsAntispamTicket; // @synthesize m_nsAntispamTicket;
